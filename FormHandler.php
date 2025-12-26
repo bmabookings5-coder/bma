@@ -25,6 +25,59 @@ use Gregwar\Captcha\CaptchaBuilder;
  *           
  *   $fh->process($_POST);
  */
+<?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+
+if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+  exit("Invalid request");
+}
+
+$name    = trim($_POST['name'] ?? '');
+$email   = trim($_POST['email'] ?? '');
+$message = trim($_POST['message'] ?? '');
+
+if (!$name || !$email || !$message) {
+  exit("Missing fields");
+}
+
+$mail = new PHPMailer(true);
+
+try {
+  // SMTP SETTINGS
+  $mail->isSMTP();
+  $mail->Host       = 'smtp.gmail.com';
+  $mail->SMTPAuth   = true;
+  $mail->Username   = 'yourgmail@gmail.com';     // YOUR GMAIL
+  $mail->Password   = 'YOUR_APP_PASSWORD';       // 16-char app password
+  $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+  $mail->Port       = 587;
+
+  // EMAIL HEADERS
+  $mail->setFrom('yourgmail@gmail.com', 'Website Contact');
+  $mail->addReplyTo($email, $name);
+  $mail->addAddress('yourgmail@gmail.com');
+
+  // CONTENT
+  $mail->isHTML(false);
+  $mail->Subject = 'New Contact Form Message';
+  $mail->Body    =
+    "Name: $name\n".
+    "Email: $email\n\n".
+    "Message:\n$message";
+
+  $mail->send();
+  echo "Message sent successfully";
+
+} catch (Exception $e) {
+  http_response_code(500);
+  echo "Mailer Error: {$mail->ErrorInfo}";
+}
+
 class FormHandler
 {
 	private $emails;
