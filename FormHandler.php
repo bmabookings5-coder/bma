@@ -52,13 +52,13 @@ try {
   $mail->isSMTP();
   $mail->Host       = 'smtp.gmail.com';
   $mail->SMTPAuth   = true;
-  $mail->Username   = 'yourgmail@gmail.com';     // YOUR GMAIL
-  $mail->Password   = 'YOUR_APP_PASSWORD';       // 16-char app password
+  $mail->Username   = 'bmabooking5@gmail.com';     // YOUR GMAIL
+  $mail->Password   = 'sjaxhwpbypkzehre';       // 16-char app password
   $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
   $mail->Port       = 587;
 
   // EMAIL HEADERS
-  $mail->setFrom('yourgmail@gmail.com', 'Website Contact');
+  $mail->setFrom('bmabooking5@gmail.com', 'Website Contact');
   $mail->addReplyTo($email, $name);
   $mail->addAddress('yourgmail@gmail.com');
 
