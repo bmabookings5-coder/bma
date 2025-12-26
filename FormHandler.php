@@ -60,7 +60,7 @@ try {
   // EMAIL HEADERS
   $mail->setFrom('bmabooking5@gmail.com', 'Website Contact');
   $mail->addReplyTo($email, $name);
-  $mail->addAddress('yourgmail@gmail.com');
+  $mail->addAddress('bmabooking5@gmail.com');
 
   // CONTENT
   $mail->isHTML(false);
